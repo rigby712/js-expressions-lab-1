@@ -1,22 +1,47 @@
-//! Start by creating the variables for the data recorded
-//* Then work on the conversion of the temperature from Celsius to Fahrenheit (or viceversa)
+// Conversion functions
+const celsiusToFahrenheit = (celsius) => (celsius * 9/5) + 32;
+const fahrenheitToCelsius = (fahrenheit) => (fahrenheit - 32) * 5/9;
 
+// Fahrenheit and Celsius temperatures
+const tempFahrenheitArray = [
+    32, 70, 80, 72, 68, 75, 82, 65, 77, 78, 73, 79, 71, 74, 76
+];
 
-//! Start the calculation of the total temperatures
-//* Then apply the conversion to calculate the total in the other unit of measurement
-//* Call the variables: tot_temperature_in_fahrenheit and tot_temperature_in_celsius
+const tempCelsiusArray = [
+    25, 18, 15, 28, 20, 23, 30, 22, 26, 24, 21, 27, 19, 17, 29
+];
 
-//! Start the calculation of the average temperatures
-//* Call the variables: avg_temperature_in_fahrenheit and avg_temperature_in_celsius
+// ✅ Convert Fahrenheit to Celsius for total in Celsius
+const allTempsInCelsius = [
+    ...tempCelsiusArray,
+    ...tempFahrenheitArray.map(fahrenheitToCelsius)  // Convert F to C
+];
 
-//! Console.log the results for your own inspection if you'd like
+// ✅ Convert Celsius to Fahrenheit for total in Fahrenheit
+const allTempsInFahrenheit = [
+    ...tempFahrenheitArray,
+    ...tempCelsiusArray.map(celsiusToFahrenheit)  // Convert C to F
+];
 
-//! After creating the four variables mentioned above, uncomment the following lines
-//* This way you can export them to the test file, this is essential for the tests to work
+// ✅ Sum before rounding
+let tot_temperature_in_fahrenheit = allTempsInFahrenheit.reduce((total, temp) => total + temp, 0);
+let tot_temperature_in_celsius = allTempsInCelsius.reduce((total, temp) => total + temp, 0);
 
-module.exports = {
-    // tot_temperature_in_fahrenheit,
-    // tot_temperature_in_celsius,
-    // avg_temperature_in_fahrenheit,
-    // avg_temperature_in_celsius
-};
+// ✅ Round totals
+tot_temperature_in_fahrenheit = Math.round(tot_temperature_in_fahrenheit * 100) / 100;
+tot_temperature_in_celsius = Math.round(tot_temperature_in_celsius * 100) / 100;
+
+// ✅ Calculate averages
+const avg_temperature_in_fahrenheit = Math.round(
+    (tot_temperature_in_fahrenheit / allTempsInFahrenheit.length) * 100
+) / 100;
+
+const avg_temperature_in_celsius = Math.round(
+    (tot_temperature_in_celsius / allTempsInCelsius.length) * 100
+) / 100;
+
+// ✅ Display results
+console.log("\nTotal Temperature in Fahrenheit:", tot_temperature_in_fahrenheit);
+console.log("Total Temperature in Celsius:", tot_temperature_in_celsius);
+console.log("Average Temperature in Fahrenheit:", avg_temperature_in_fahrenheit);
+console.log("Average Temperature in Celsius:", avg_temperature_in_celsius);
